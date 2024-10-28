@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pemilihan Calon</title>
+    <style>
+        body {
+            background-image: url('https://img.freepik.com/premium-photo/abstract-background_1258715-146742.jpg?semt=ais_hybrid');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: Arial, sans-serif;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .container {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .logo-container img {
+            width: 80px;
+            height: auto;
+            margin: 0 10px;
+        }
+        button {
+            background-color: blue;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-container">
+            <img src="alfath-logo.png" alt="Logo Alfath">
+            <img src="osis-logo.png" alt="Logo OSIS">
+        </div>
+
+        <h1>Pilih Calon Anda</h1>
+        <form id="votingForm">
+            <label>
+                <input type="radio" name="candidate" value="1"> Calon 1
+            </label><br>
+            <label>
+                <input type="radio" name="candidate" value="2"> Calon 2
+            </label><br>
+            <label>
+                <input type="radio" name="candidate" value="3"> Calon 3
+            </label><br>
+            <input type="text" id="name" placeholder="Masukkan Nama" required>
+            <br>
+            <button type="submit">Kirim Suara</button>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('votingForm');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const candidate = form.candidate.value;
+            const votes = JSON.parse(localStorage.getItem('votes')) || [];
+            votes.push({ name: name, candidate: candidate });
+            localStorage.setItem('votes', JSON.stringify(votes));
+            window.location.href = 'thankyou.html';
+        });
+    </script>
+</body>
+</html>

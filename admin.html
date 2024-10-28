@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <style>
+        body {
+            background-image: url('https://img.freepik.com/premium-photo/abstract-background_1258715-146742.jpg?semt=ais_hybrid');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: Arial, sans-serif;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 50px;
+            text-align: center;
+        }
+        .container {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 600px;
+        }
+        .votes {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .vote {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: black;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 5px;
+            width: 100%;
+            text-align: left;
+        }
+        button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .dropdown {
+            display: none;
+            margin-top: 10px;
+            text-align: left;
+        }
+        .toggle-button {
+            cursor: pointer;
+            color: lightblue;
+        }
+        .delete-button {
+            background-color: transparent;
+            color: white;
+            border: 1px solid red;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Data Pemilih</h1>
+        <div id="voteCount">Total Suara: <span id="totalVotes">0</span></div>
+        <div class="votes" id="votesList"></div>
+        <button onclick="deleteAllVotes()">Delete All Votes</button>
+    </div>
+
+    <script>
+        function displayVotes() {
+            const votes = JSON.parse(localStorage.getItem('votes')) || [];
+            const votesList = document.getElementById('votesList');
+            const totalVotes = document.getElementById('totalVotes');
+            const candidateCounts = { '1': [], '2': [], '3': [] };
+
+            // Hitung suara untuk masing-masing calon
+            votes.forEach(vote => {
+                candidateCounts[vote.candidate].push(vote.name);
+            });
+
+            // Tampilkan jumlah suara untuk setiap calon
+            votesList.innerHTML = '';
+            for (const candidate in candidateCounts) {
+                const count = candidateCounts[candidate].length;
+                votesList.innerHTML += `
+                    <div class="vote">Calon ${candidate}: ${count} suara <span class="toggle-button" onclick="toggleDropdown('dropdown${candidate}')">▼</span></div>
+                    <div id="dropdown${candidate}" class="dropdown">${displayVoters(candidateCounts[candidate])}</div>
+                `;
+            }
+
+            totalVotes.innerText = votes.length; // Total suara
+        }
+
+        function displayVoters(voters) {
+            return voters.map(voter => `
+                <div>
+                    ${voter} <button class="delete-button" onclick="deleteVote('${voter}')">Delete</button>
+                </div>
+            `).join('');
+        }
+
+        function toggleDropdown(dropdownId) {
+            const dropdown = document.getElementById(dropdownId);
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function deleteVote(voterName) {
+            let votes = JSON.parse(localStorage.getItem('votes')) || [];
+            votes = votes.filter(vote => vote.name !== voterName);
+            localStorage.setItem('votes', JSON.stringify(votes));
+            displayVotes();
+        }
+
+        function deleteAllVotes() {
+            localStorage.removeItem('votes');
+            displayVotes();
+        }
+
+        displayVotes();
+    </script>
+</body>
+</html>
