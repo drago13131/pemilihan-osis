@@ -10,29 +10,45 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Font modern */
             color: white;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            margin: 0;
             text-align: center;
         }
         .container {
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.8); /* Kontras yang lebih baik */
+            padding: 40px; /* Padding lebih banyak */
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.7); /* Bayangan lebih dalam */
             width: 80%;
-            max-width: 600px;
+            max-width: 600px; /* Ukuran maksimal */
+        }
+        h1 {
+            font-size: 28px; /* Ukuran font lebih besar untuk judul */
+            margin-bottom: 20px; /* Jarak bawah judul */
+        }
+        p {
+            font-size: 18px; /* Ukuran font lebih besar untuk paragraf */
+            margin: 10px 0; /* Jarak antar paragraf */
         }
         button {
-            background-color: #4CAF50;
+            background-color: #4CAF50; /* Warna hijau */
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 25px; /* Padding lebih banyak */
             cursor: pointer;
             margin-top: 20px;
             margin: 10px;
+            border-radius: 5px; /* Sudut tombol lebih melengkung */
+            transition: background-color 0.3s, transform 0.3s; /* Efek transisi */
+        }
+        button:hover {
+            background-color: #45a049; /* Warna lebih gelap saat hover */
+            transform: scale(1.05); /* Efek memperbesar saat hover */
         }
     </style>
 </head>
